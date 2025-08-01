@@ -1,0 +1,64 @@
+// Estilos específicos para Login Component - Versión simplificada
+.login-container {
+    // Estilos básicos sin clases personalizadas
+}
+
+.login-card {
+    transition: all 0.3s ease;
+    &:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    }
+}
+
+.login-button {
+    transition: all 0.2s ease;
+    &:hover {
+        transform: scale(1.02);
+    }
+    &:active {
+        transform: scale(0.98);
+    }
+}
+
+.form-input {
+    transition: all 0.2s ease;
+    &:focus {
+        animation: pulse 0.3s ease;
+    }
+}
+
+// Animaciones básicas
+.login-title {
+    animation: slideInUp 0.6s ease-out;
+}
+
+.login-form {
+    animation: slideInUp 0.8s ease-out;
+}
+
+.login-actions {
+    animation: slideInUp 1s ease-out;
+}
+
+// Keyframes básicos
+@keyframes slideInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes pulse {
+    0%,
+    100% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.02);
+    }
+}

@@ -1,0 +1,45 @@
+<!-- Template simple para registro -->
+<div class="min-h-screen bg-gray-100 flex items-center justify-center p-4">
+    <div class="w-full max-w-md bg-white rounded-lg shadow-lg p-6">
+
+        <h1 class="text-2xl font-bold text-center text-blue-600 mb-6">Crear Cuenta</h1>
+
+        <!-- Formulario simple -->
+        <form (ngSubmit)="register()" class="space-y-4">
+            <div>
+                <label for="username" class="block text-sm font-medium text-gray-700 mb-1">
+                    Usuario
+                </label>
+                <input type="text" id="username" [(ngModel)]="username" name="username" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500" placeholder="Elige un usuario" />
+            </div>
+
+            <div>
+                <label for="email" class="block text-sm font-medium text-gray-700 mb-1">
+                    Email
+                </label>
+                <input type="email" id="email" [(ngModel)]="email" name="email" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500" placeholder="tu@email.com" />
+            </div>
+
+            <div>
+                <label for="password" class="block text-sm font-medium text-gray-700 mb-1">
+                    Contraseña
+                </label>
+                <input type="password" id="password" [(ngModel)]="password" name="password" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500" placeholder="Tu contraseña" />
+            </div>
+
+            <button type="submit" class="w-full bg-blue-500 text-white py-2 px-4 rounded-lg hover:bg-blue-600">
+                Crear Cuenta
+            </button>
+        </form>
+
+        <div class="mt-4 text-center">
+            <p class="text-gray-600">
+                ¿Ya tienes cuenta?
+                <button type="button" (click)="goToLogin()" class="text-blue-500 hover:text-blue-700 font-medium">
+                    Inicia sesión
+                </button>
+            </p>
+        </div>
+
+    </div>
+</div>
