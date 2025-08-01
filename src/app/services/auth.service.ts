@@ -1,24 +1,36 @@
-import { Injectable } from '@angular/core';
+import { Injectable, signal, computed } from '@angular/core';
 
 @Injectable({
-    providedIn: 'root'
+  providedIn: 'root',
 })
 export class AuthService {
-    private isAuthenticated = false;
+  //private isAuthenticated = false;
+  private _isAuthenticated = signal<boolean>(false);
+  private _currentUser = signal<string | null>(null);
 
-    login(username: string, password: string) {
-        if(username === 'admin' && password === '123456'){
-            this.isAuthenticated = true
-            return true;
-        }
-        return false
-    }
+  isAuthenticated = computed(() => this._isAuthenticated());
+  currentUser = computed(() => this._currentUser());
 
-    logout(){
-        this.isAuthenticated = false;
-    }
+  authState = computed(() => ({
+    isAuthenticated: this.isAuthenticated(),
+    currentUser: this.currentUser(),
+  }));
 
-    isLoggedIn(): boolean {
-        return this.isAuthenticated;
+  login(username: string, password: string) {
+    if (username === 'admin' && password === '123456') {
+      this._isAuthenticated.set(true);
+      this._currentUser.set(username);
+      return true;
     }
+    return false;
+  }
+
+  logout() {
+    this._isAuthenticated.set(false);
+    this._currentUser.set(null);
+  }
+
+  isLoggedIn(): boolean {
+    return this.isAuthenticated();
+  }
 }
