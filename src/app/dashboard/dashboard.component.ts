@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { TasksComponent } from '../tasks/tasks.component';
+import { AuthService } from '../services/auth.service';
 
 // Interfaz simple para las tareas
 export interface Task {
@@ -25,10 +26,11 @@ export class DashboardComponent {
     { id: 3, title: 'Crear proyecto', completed: false },
   ];
 
-  constructor(private router: Router) {}
+  constructor(private router: Router, private authService: AuthService) {}
 
   // Método para cerrar sesión con navegación programática
   logout() {
+    this.authService.logout();
     this.router.navigate(['/login']);
   }
 
