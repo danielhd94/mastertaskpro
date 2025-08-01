@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { CanDeactivate } from '@angular/router';
 
-
 export interface CanComponentDeactivate {
   canDeactivate: () => boolean;
 }
@@ -9,13 +8,16 @@ export interface CanComponentDeactivate {
 @Injectable({
   providedIn: 'root',
 })
-export class NoAuthGuard implements CanDeactivate<CanComponentDeactivate> {
-
+export class ConfirmExitGuard implements CanDeactivate<CanComponentDeactivate> {
   canDeactivate(component: CanComponentDeactivate): boolean {
-    if (component.canDeactivate()) {
+    console.log('ConfirmExitGuard: canDeactivate');
+
+    // Check if component implements the interface and has the canDeactivate method
+    if (component && typeof component.canDeactivate === 'function') {
       return component.canDeactivate();
     }
-    //false para cancelar la navegación o true para continuar
+
+    // If component doesn't implement the interface, show confirmation dialog
     return confirm('¿Estás seguro de querer salir?');
   }
 }

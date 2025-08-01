@@ -1,6 +1,7 @@
 import { Routes } from '@angular/router';
 import { NoAuthGuard } from './guards/no-auth.guards';
 import { AuthGuard } from './guards/auth.guards';
+import { ConfirmExitGuard } from './guards/confirm-exit.guards';
 
 // Configuración simple de rutas
 export const routes: Routes = [
@@ -27,7 +28,7 @@ export const routes: Routes = [
       import('./dashboard/dashboard.component').then(
         (m) => m.DashboardComponent
       ), // ← Lazy loading
-    canDeactivate: [NoAuthGuard],
+    canDeactivate: [ConfirmExitGuard],
     canActivate: [AuthGuard],
   },
   {
