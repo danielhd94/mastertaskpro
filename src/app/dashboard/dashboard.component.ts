@@ -4,21 +4,16 @@ import { CommonModule } from '@angular/common';
 import { TasksComponent } from '../tasks/tasks.component';
 import { AuthService } from '../services/auth.service';
 import { AppStateService } from '../services/app-state.service';
-import { UserService } from '../services/user.service';
+import { User, UserService } from '../services/user.service';
 import { map } from 'rxjs/operators';
 import { Observable } from 'rxjs';
+import { error } from 'console';
 
 // Interfaz simple para las tareas
 export interface Task {
   id: number;
   title: string;
   completed: boolean;
-}
-
-export interface User {
-  id: number;
-  name: string;
-  phone: string;
 }
 
 @Component({
@@ -43,9 +38,14 @@ export class DashboardComponent implements OnInit {
     { id: 3, title: 'Crear proyecto', completed: false },
   ];
 
+
+  users: User[] = [];
+
   constructor(private router: Router) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.loadUsers();
+  }
 
   // Método para cerrar sesión con navegación programática
   logout() {
@@ -72,5 +72,16 @@ export class DashboardComponent implements OnInit {
 
   getUsers(): Observable<User[]> {
     return this.userService.getUsers().pipe(map((response) => response.data));
+  }
+
+  loadUsers() {
+    this.userService.getUsers().subscribe({
+      next: (response) => {
+        this.users = response.data;
+      },
+      error: (error) => {
+        console.log(error);
+      },
+    });
   }
 }
