@@ -1,3 +1,4 @@
+import { LoginReactiveComponent } from './login-reactive/login-reactive.component';
 import { Routes } from '@angular/router';
 import { NoAuthGuard } from './guards/no-auth.guards';
 import { AuthGuard } from './guards/auth.guards';
@@ -13,7 +14,9 @@ export const routes: Routes = [
   {
     path: 'login',
     loadComponent: () =>
-      import('./login/login.component').then((m) => m.LoginComponent), // ← Lazy loading
+      import('./login-reactive/login-reactive.component').then(
+        (m) => m.LoginReactiveComponent
+      ), // ← Lazy loading
     canActivate: [NoAuthGuard],
   },
   {
