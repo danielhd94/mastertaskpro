@@ -4,6 +4,9 @@ import { CommonModule } from '@angular/common';
 import { TasksComponent } from '../tasks/tasks.component';
 import { AuthService } from '../services/auth.service';
 import { AppStateService } from '../services/app-state.service';
+import { UserService } from '../services/user.service';
+import { map } from 'rxjs/operators';
+import { Observable } from 'rxjs';
 
 // Interfaz simple para las tareas
 export interface Task {
@@ -12,7 +15,11 @@ export interface Task {
   completed: boolean;
 }
 
-
+export interface User {
+  id: number;
+  name: string;
+  phone: string;
+}
 
 @Component({
   selector: 'app-dashboard',
@@ -21,13 +28,13 @@ export interface Task {
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.scss',
 })
-export class DashboardComponent implements OnInit{
-  private authService = inject(AuthService)
-  private appStateService = inject(AppStateService)
+export class DashboardComponent implements OnInit {
+  private authService = inject(AuthService);
+  private appStateService = inject(AppStateService);
+  private userService = inject(UserService);
 
-  public isAuthenticated = this.appStateService.isAuthenticated()
-  public username = this.appStateService.username()
-
+  public isAuthenticated = this.appStateService.isAuthenticated();
+  public username = this.appStateService.username();
 
   // Lista simple de tareas
   tasks: Task[] = [
@@ -38,10 +45,7 @@ export class DashboardComponent implements OnInit{
 
   constructor(private router: Router) {}
 
-
-  ngOnInit(): void {
-
-  }
+  ngOnInit(): void {}
 
   // Método para cerrar sesión con navegación programática
   logout() {
@@ -64,5 +68,9 @@ export class DashboardComponent implements OnInit{
     this.tasks = this.tasks.map((task) =>
       task.id === taskId ? { ...task, completed: !task.completed } : task
     );
+  }
+
+  getUsers(): Observable<User[]> {
+    return this.userService.getUsers().pipe(map((response) => response.data));
   }
 }

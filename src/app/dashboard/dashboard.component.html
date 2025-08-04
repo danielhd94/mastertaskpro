@@ -12,8 +12,13 @@
             <button (click)="logout() " class="bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600 ">
                 Cerrar Sesión
             </button>
+            <button (click)="getUsers()" class="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 ">
+                Obtener Usuarios
+            </button>
         </div>
-
+        <div *ngIf="getUsers() | async as users">
+            <h2>Usuarios</h2>
+        </div>
         <!-- Componente hijo con @Input y @Output -->
         <div class="bg-white rounded-lg shadow-lg p-6 ">
             <app-tasks [tasks]="tasks " (taskAdded)="onTaskAdded($event) " (taskToggled)="onTaskToggled($event) " />

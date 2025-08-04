@@ -17,7 +17,6 @@ export class LoginReactiveComponent {
     captcha: new FormControl<string>('', [Validators.required, Validators.pattern(/[0-9]/)]),
   });
   private router = inject(Router);
-  private appStateService = inject(AppStateService);
   private authService = inject(AuthService);
 
   login() {
@@ -31,3 +30,11 @@ export class LoginReactiveComponent {
     console.log(this.loginForm.value);
   }
 }
+/*
+{ 
+  "success": false,
+  "data": Object,
+  "message": "Not founf",
+  "code": 404
+}
+*/
