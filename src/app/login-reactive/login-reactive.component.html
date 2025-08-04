@@ -1,0 +1,10 @@
+<label for="username">Username: </label>
+<input id="username" type="text" [formControl]="username">
+
+<label for="password">Password: </label>
+<input id="password" type="password" [formControl]="password">
+
+<label for="captcha">Captcha: </label>
+<input id="captcha" type="text" [formControl]="captcha">
+
+<button (click)="login()">Login</button>
