@@ -1,8 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { TasksComponent } from '../tasks/tasks.component';
 import { AuthService } from '../services/auth.service';
+import { AppStateService } from '../services/app-state.service';
 
 // Interfaz simple para las tareas
 export interface Task {
@@ -11,6 +12,8 @@ export interface Task {
   completed: boolean;
 }
 
+
+
 @Component({
   selector: 'app-dashboard',
   standalone: true, // ← Componente Standalone
@@ -18,7 +21,14 @@ export interface Task {
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.scss',
 })
-export class DashboardComponent {
+export class DashboardComponent implements OnInit{
+  private authService = inject(AuthService)
+  private appStateService = inject(AppStateService)
+
+  public isAuthenticated = this.appStateService.isAuthenticated()
+  public username = this.appStateService.username()
+
+
   // Lista simple de tareas
   tasks: Task[] = [
     { id: 1, title: 'Aprender Angular', completed: false },
@@ -26,7 +36,12 @@ export class DashboardComponent {
     { id: 3, title: 'Crear proyecto', completed: false },
   ];
 
-  constructor(private router: Router, private authService: AuthService) {}
+  constructor(private router: Router) {}
+
+
+  ngOnInit(): void {
+
+  }
 
   // Método para cerrar sesión con navegación programática
   logout() {

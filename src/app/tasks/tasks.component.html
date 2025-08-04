@@ -14,9 +14,9 @@
     </div>
 
     <!-- Lista simple de tareas -->
-    <div class="space-y-3">
-        @if (tasks.length > 0) { @for (task of tasks; track task.id) {
-        <div class="flex items-center gap-3 p-3 border border-gray-200 rounded-lg">
+    <div *ngIf="tasks.length > 0" class="space-y-3">
+
+        <div *ngFor="let task of tasks" class="flex items-center gap-3 p-3 border border-gray-200 rounded-lg">
             <!-- Checkbox para marcar completada -->
             <input type="checkbox" [checked]="task.completed" (change)="toggleTask(task.id)" class="w-5 h-5" />
 
@@ -30,8 +30,8 @@
         {{ task.completed ? 'Completada' : 'Pendiente' }}
       </span>
         </div>
-        } } @else {
+
         <p class="text-gray-500 text-center py-8">No hay tareas. ¡Agrega la primera!</p>
-        }
+
     </div>
 </div>

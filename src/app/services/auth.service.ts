@@ -1,9 +1,11 @@
-import { Injectable, signal, computed } from '@angular/core';
+import { Injectable, signal, computed, inject } from '@angular/core';
+import { AppStateService } from './app-state.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
+  private appStateService = inject(AppStateService)
   //private isAuthenticated = false;
   private _isAuthenticated = signal<boolean>(false);
   private _currentUser = signal<string | null>(null);
@@ -20,6 +22,8 @@ export class AuthService {
     if (username === 'admin' && password === '123456') {
       this._isAuthenticated.set(true);
       this._currentUser.set(username);
+      this.appStateService.setIsAuthenticated(true);
+      this.appStateService.setUsername(username);
       return true;
     }
     return false;
