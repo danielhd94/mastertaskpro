@@ -4,7 +4,8 @@ import { CommonModule } from '@angular/common';
 import { TasksComponent } from '../tasks/tasks.component';
 import { AuthService } from '../services/auth.service';
 import { AppStateService } from '../services/app-state.service';
-import { User, UserService } from '../services/user.service';
+import { UserService } from '../services/user/user.service';
+import { User } from '../services/user/model';
 import { map } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 
@@ -36,7 +37,6 @@ export class DashboardComponent implements OnInit {
     { id: 2, title: 'Hacer ejercicios', completed: true },
     { id: 3, title: 'Crear proyecto', completed: false },
   ];
-
 
   users: User[] = [];
 
