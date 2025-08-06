@@ -62,4 +62,17 @@ describe('AuthService', () => {
     });
   });
 
+  describe('isLoggedIn', () => {
+    it('deberia retornar true si el usuario esta autenticado', () => {
+      // Arrange: Iniciar sesion - Preparar datos de prueba
+      service.login('admin', '123456');
+      
+      // Act: Verificar si el usuario esta autenticado - Ejecutar la funcion
+      const result = service.isLoggedIn();
+
+      // Assert: Verificar el resultado - Verificar el estado de la autenticacion
+      expect(result).toBe(true);
+    });
+  });
+
 });
