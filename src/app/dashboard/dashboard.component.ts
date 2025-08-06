@@ -7,7 +7,6 @@ import { AppStateService } from '../services/app-state.service';
 import { User, UserService } from '../services/user.service';
 import { map } from 'rxjs/operators';
 import { Observable } from 'rxjs';
-import { error } from 'console';
 
 // Interfaz simple para las tareas
 export interface Task {
