@@ -1,8 +1,13 @@
 import { Component, inject, input } from '@angular/core';
-import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import {
+  FormControl,
+  FormGroup,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
 import { Router } from '@angular/router';
-import { AppStateService } from '../services/app-state.service';
-import { AuthService } from '../services/auth.service';
+import { AppStateService } from '../services/app/app-state.service';
+import { AuthService } from '../services/auth/auth.service';
 
 @Component({
   selector: 'app-login-reactive',
@@ -14,7 +19,10 @@ export class LoginReactiveComponent {
   loginForm = new FormGroup({
     username: new FormControl<string>('', [Validators.required]),
     password: new FormControl<string>('', [Validators.required]),
-    captcha: new FormControl<string>('', [Validators.required, Validators.pattern(/[0-9]/)]),
+    captcha: new FormControl<string>('', [
+      Validators.required,
+      Validators.pattern(/[0-9]/),
+    ]),
   });
   private router = inject(Router);
   private authService = inject(AuthService);
@@ -22,7 +30,10 @@ export class LoginReactiveComponent {
   login() {
     if (this.loginForm.valid) {
       console.log('Formulario válido');
-      this.authService.login(this.loginForm.value.username!, this.loginForm.value.password!);
+      this.authService.login(
+        this.loginForm.value.username!,
+        this.loginForm.value.password!
+      );
       this.router.navigate(['/dashboard']);
     } else {
       console.log('Formulario inválido');

@@ -1,12 +1,11 @@
 import { Injectable, signal, computed, inject } from '@angular/core';
-import { AppStateService } from './app-state.service';
+import { AppStateService } from '../app/app-state.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
-  private appStateService = inject(AppStateService)
-  //private isAuthenticated = false;
+  private appStateService = inject(AppStateService);
   private _isAuthenticated = signal<boolean>(false);
   private _currentUser = signal<string | null>(null);
 

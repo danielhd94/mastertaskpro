@@ -2,8 +2,8 @@ import { Component, inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { AuthService } from '../services/auth.service';
-import { AppStateService } from '../services/app-state.service';
+import { AuthService } from '../services/auth/auth.service';
+import { AppStateService } from '../services/app/app-state.service';
 
 @Component({
   selector: 'app-login',
@@ -13,8 +13,8 @@ import { AppStateService } from '../services/app-state.service';
   styleUrl: './login.component.scss',
 })
 export class LoginComponent {
-  private appStateService = inject(AppStateService)
-  public error = this.appStateService.error()
+  private appStateService = inject(AppStateService);
+  public error = this.appStateService.error();
   username: string = '';
   password: string = '';
   captcha: string = '';
@@ -40,10 +40,9 @@ export class LoginComponent {
       this.appStateService.setError('Por favor, complete todos los campos');
       this.appStateService.setIsAuthenticated(false);
     }
-    
   }
 
- public captchaValidator(captcha: string): boolean {
+  public captchaValidator(captcha: string): boolean {
     const hasNumber = /\d/.test(captcha);
     const hasLetter = /[a-zA-Z]/.test(captcha);
     if (!hasNumber || !hasLetter) {
