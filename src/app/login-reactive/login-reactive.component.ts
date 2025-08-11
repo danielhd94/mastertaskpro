@@ -8,10 +8,13 @@ import {
 import { Router } from '@angular/router';
 import { AppStateService } from '../services/app/app-state.service';
 import { AuthService } from '../services/auth/auth.service';
+import { InputTextModule } from 'primeng/inputtext';
+import { FloatLabelModule } from 'primeng/floatlabel';
+import { ButtonModule } from 'primeng/button';
 
 @Component({
   selector: 'app-login-reactive',
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule, InputTextModule, FloatLabelModule, ButtonModule],
   templateUrl: './login-reactive.component.html',
   styleUrl: './login-reactive.component.scss',
 })

@@ -8,6 +8,11 @@ import { UserService } from '../services/user/user.service';
 import { User } from '../services/user/model';
 import { map } from 'rxjs/operators';
 import { Observable } from 'rxjs';
+import { TableModule } from 'primeng/table';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import { ToastModule } from 'primeng/toast';
+import { ButtonModule } from 'primeng/button';
+import { ConfirmationService } from 'primeng/api';
 
 // Interfaz simple para las tareas
 export interface Task {
@@ -19,7 +24,14 @@ export interface Task {
 @Component({
   selector: 'app-dashboard',
   standalone: true, // ← Componente Standalone
-  imports: [TasksComponent, CommonModule], // ← Imports directos
+  imports: [
+    TasksComponent,
+    CommonModule,
+    TableModule,
+    ConfirmDialogModule,
+    ToastModule,
+    ButtonModule,
+  ], // ← Imports directos
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.scss',
 })
@@ -27,6 +39,7 @@ export class DashboardComponent implements OnInit {
   private authService = inject(AuthService);
   private appStateService = inject(AppStateService);
   private userService = inject(UserService);
+  private confirmationService = inject(ConfirmationService);
 
   public isAuthenticated = this.appStateService.isAuthenticated();
   public username = this.appStateService.username();
@@ -48,8 +61,18 @@ export class DashboardComponent implements OnInit {
 
   // Método para cerrar sesión con navegación programática
   logout() {
-    this.authService.logout();
-    this.router.navigate(['/login']);
+    this.confirmationService.confirm({
+      message: 'Are you sure that you want to proceed?',
+      header: 'Confirmation',
+      icon: 'pi pi-exclamation-triangle',
+      accept: () => {
+        this.authService.logout();
+        this.router.navigate(['/login']);
+      },
+      reject: () => {
+        console.log('Cancelado');
+      },
+    });
   }
 
   // Comunicación con componente hijo - recibir nueva tarea
